@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">DSADude</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="data_structures">Data Structures</string>
+    <string name="algorithms">Algorithms</string>
+    <string name="sorting_algorithms">Sorting Algorithms</string>
+    <string name="bubble_sort">Bubble Sort</string>
+    <string name="insertion_sort">Insertion Sort</string>
+    <string name="merge_sort">Merge Sort</string>
+    <string name="quick_sort">Quick Sort</string>
+    <string name="selection_sort">Selection Sort</string>
+</resources>

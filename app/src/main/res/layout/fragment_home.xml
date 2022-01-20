@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/MajorOrange"
+    android:orientation="vertical"
+    tools:context=".HomeFragment">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:text="@string/app_name"
+        android:fontFamily="@font/quicksand_bold"
+        android:textSize="50sp"
+        android:paddingTop="50dp"
+        android:textColor="@color/black"
+        android:layout_gravity="center"
+        android:layout_weight="1"/>
+
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_gravity="center" >
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/data_structures"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="50dp"
+            android:layout_gravity="center"
+            android:clickable="true"
+            android:focusable="true"
+            android:backgroundTint="@color/LightOrange">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:backgroundTint="@color/LightOrange"
+                android:textSize="25sp"
+                android:padding="16dp"
+                android:text="@string/data_structures"
+                android:fontFamily="@font/quicksand_bold"/>
+
+        </com.google.android.material.card.MaterialCardView>
+
+    </FrameLayout>
+
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_gravity="center" >
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/algorithms"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="50dp"
+            android:layout_gravity="center"
+            android:clickable="true"
+            android:focusable="true"
+            android:backgroundTint="@color/LightOrange">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:backgroundTint="@color/LightOrange"
+                android:textSize="25sp"
+                android:padding="16dp"
+                android:text="@string/algorithms"
+                android:fontFamily="@font/quicksand_bold"/>
+
+        </com.google.android.material.card.MaterialCardView>
+
+    </FrameLayout>
+
+</LinearLayout>

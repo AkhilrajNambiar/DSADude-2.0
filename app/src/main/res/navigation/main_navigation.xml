@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_navigation.xml"
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.example.dsadude.HomeFragment"
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_homeFragment_to_dataStructuresListFragment"
+            app:destination="@id/dataStructuresListFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_algorithmsListFragment"
+            app:destination="@id/algorithmsListFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/dataStructuresListFragment"
+        android:name="com.example.dsadude.data_structures.DataStructuresListFragment"
+        android:label="fragment_data_structures_list"
+        tools:layout="@layout/fragment_data_structures_list" />
+    <fragment
+        android:id="@+id/algorithmsListFragment"
+        android:name="com.example.dsadude.algorithms.AlgorithmsListFragment"
+        android:label="fragment_algorithms_list"
+        tools:layout="@layout/fragment_algorithms_list" >
+        <action
+            android:id="@+id/action_algorithmsListFragment_to_sortingListFragment"
+            app:destination="@id/sortingListFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/sortingListFragment"
+        android:name="com.example.dsadude.algorithms.components.sorting.SortingListFragment"
+        android:label="SortingListFragment" >
+        <action
+            android:id="@+id/action_sortingListFragment_to_bubbleSortFragment"
+            app:destination="@id/bubbleSortFragment" />
+        <action
+            android:id="@+id/action_sortingListFragment_to_insertionSortFragment"
+            app:destination="@id/insertionSortFragment" />
+        <action
+            android:id="@+id/action_sortingListFragment_to_mergeSortFragment"
+            app:destination="@id/mergeSortFragment" />
+        <action
+            android:id="@+id/action_sortingListFragment_to_quickSortFragment"
+            app:destination="@id/quickSortFragment" />
+        <action
+            android:id="@+id/action_sortingListFragment_to_selectionSortFragment"
+            app:destination="@id/selectionSortFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/bubbleSortFragment"
+        android:name="com.example.dsadude.algorithms.components.sorting.components.bubble_sort.BubbleSortFragment"
+        android:label="fragment_bubble_sort"
+        tools:layout="@layout/fragment_bubble_sort" />
+    <fragment
+        android:id="@+id/insertionSortFragment"
+        android:name="com.example.dsadude.algorithms.components.sorting.components.insertion_sort.InsertionSortFragment"
+        android:label="fragment_insertion_sort"
+        tools:layout="@layout/fragment_insertion_sort" />
+    <fragment
+        android:id="@+id/mergeSortFragment"
+        android:name="com.example.dsadude.algorithms.components.sorting.components.merge_sort.MergeSortFragment"
+        android:label="fragment_merge_sort"
+        tools:layout="@layout/fragment_merge_sort" />
+    <fragment
+        android:id="@+id/quickSortFragment"
+        android:name="com.example.dsadude.algorithms.components.sorting.components.quick_sort.QuickSortFragment"
+        android:label="fragment_quick_sort"
+        tools:layout="@layout/fragment_quick_sort" />
+    <fragment
+        android:id="@+id/selectionSortFragment"
+        android:name="com.example.dsadude.algorithms.components.sorting.components.selection_sort.SelectionSortFragment"
+        android:label="fragment_selection_sort"
+        tools:layout="@layout/fragment_selection_sort" />
+</navigation>
