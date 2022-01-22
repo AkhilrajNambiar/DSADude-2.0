@@ -26,4 +26,6 @@
     <color name="BlueViolet2">#ff9fa5fe</color>
     <color name="BlueViolet3">#ff8f98fd</color>
     <color name="blue">#FF0055FF</color>
+    <color name="red">#FFFF0000</color>
+    <color name="green">#FF00FF00</color>
 </resources>

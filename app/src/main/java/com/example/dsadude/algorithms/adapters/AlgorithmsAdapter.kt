@@ -36,7 +36,8 @@ class AlgorithmsAdapter(
                     navController.navigate(action)
                 }
                 else if (item.name == "Searching") {
-
+                    val action = AlgorithmsListFragmentDirections.actionAlgorithmsListFragmentToSearchingListFragment()
+                    navController.navigate(action)
                 }
             }
         }

@@ -9,4 +9,8 @@
     <string name="merge_sort">Merge Sort</string>
     <string name="quick_sort">Quick Sort</string>
     <string name="selection_sort">Selection Sort</string>
+    <string name="number_to_search">Enter a number to search</string>
+    <string name="search">Search</string>
+    <string name="linear_search">Linear Search</string>
+    <string name="searching_algorithms">Searching Algorithms</string>
 </resources>

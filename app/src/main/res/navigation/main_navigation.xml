@@ -30,6 +30,9 @@
         <action
             android:id="@+id/action_algorithmsListFragment_to_sortingListFragment"
             app:destination="@id/sortingListFragment" />
+        <action
+            android:id="@+id/action_algorithmsListFragment_to_searchingListFragment"
+            app:destination="@id/searchingListFragment" />
     </fragment>
     <fragment
         android:id="@+id/sortingListFragment"
@@ -76,4 +79,16 @@
         android:name="com.example.dsadude.algorithms.components.sorting.components.selection_sort.SelectionSortFragment"
         android:label="fragment_selection_sort"
         tools:layout="@layout/fragment_selection_sort" />
+    <fragment
+        android:id="@+id/searchingListFragment"
+        android:name="com.example.dsadude.algorithms.components.searching.SearchingListFragment"
+        android:label="SearchingListFragment" >
+        <action
+            android:id="@+id/action_searchingListFragment_to_linearSearchFragment"
+            app:destination="@id/linearSearchFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/linearSearchFragment"
+        android:name="com.example.dsadude.algorithms.components.searching.linear_search.LinearSearchFragment"
+        android:label="LinearSearchFragment" />
 </navigation>
