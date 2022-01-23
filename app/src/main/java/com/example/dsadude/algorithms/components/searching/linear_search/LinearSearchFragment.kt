@@ -14,15 +14,17 @@ import androidx.lifecycle.lifecycleScope
 import com.example.dsadude.R
 import com.example.dsadude.algorithms.components.searching.util.ElementBox
 import com.google.android.material.textfield.TextInputEditText
+import com.google.android.material.textfield.TextInputLayout
 import kotlinx.coroutines.launch
 
 class LinearSearchFragment : Fragment(R.layout.fragment_linear_search) {
 
-    private var leftOfBox = 10f
-    private var topOfBox = 150f
+    private var leftOfBox = 20f
+    private var topOfBox = 100f
     private val boxWidth = 120f
     private var boxes = mutableListOf<Int>()
     private var foundIndex = -1
+    private var isRunning = false
 
     private val uniqueBoxes = mutableSetOf<Int>()
 
@@ -42,7 +44,8 @@ class LinearSearchFragment : Fragment(R.layout.fragment_linear_search) {
 
         val screenWidth = requireActivity().windowManager.defaultDisplay.width
         val screenHeight = requireActivity().windowManager.defaultDisplay.height
-        while (uniqueBoxes.size <= 20) {
+
+        while (uniqueBoxes.size <= 24) {
             uniqueBoxes.add((10..500).random())
         }
         Log.d("screen", "$screenWidth")
@@ -55,7 +58,7 @@ class LinearSearchFragment : Fragment(R.layout.fragment_linear_search) {
             Log.d("topOfBox", "topOfBox: $topOfBox")
             if ((leftOfBox + boxWidth) > screenWidth) {
                 topOfBox += 150f
-                leftOfBox = 10f
+                leftOfBox = 20f
             }
         }
         Log.d("boxes", "boxes: $boxes")
@@ -68,31 +71,40 @@ class LinearSearchFragment : Fragment(R.layout.fragment_linear_search) {
         val foundOrNot = view.findViewById<TextView>(R.id.found_or_not)
 
         startSearchingBtn.setOnClickListener {
-            foundIndex = -1
-            foundOrNot.text = ""
-            if (itemToSearch.editableText.toString().isEmpty()) {
-                Toast.makeText(requireContext(), "No item provided!", Toast.LENGTH_SHORT).show()
-            }
-            else {
-                lifecycleScope.launch {
-                    linearSearch(boxes, itemToSearch.editableText.toString().toInt())
-                    if (foundIndex == -1) {
-                        foundOrNot.text = "Item not found in array!"
-                    }
-                    else {
-                        foundOrNot.text = "Item found at index $foundIndex"
+            if (!isRunning) {
+                foundIndex = -1
+                foundOrNot.text = ""
+                if (itemToSearch.editableText.toString().isEmpty()) {
+                    Toast.makeText(requireContext(), "No item provided!", Toast.LENGTH_SHORT).show()
+                }
+                else {
+                    lifecycleScope.launch {
+                        linearSearch(boxes, itemToSearch.editableText.toString().toInt())
+                        if (foundIndex == -1) {
+                            foundOrNot.text = "Item not found in array!"
+                            Log.d("foundIndex", "Item not found!")
+                        }
+                        else {
+                            foundOrNot.text = "Item found at index $foundIndex"
+                            Log.d("foundIndex", "Item found at index $foundIndex")
+                        }
                     }
                 }
+            }
+            else {
+                Toast.makeText(requireContext(), "One search process is still going on!", Toast.LENGTH_LONG).show()
             }
         }
     }
 
     private suspend fun linearSearch(nums: List<Int>, target: Int) {
+        isRunning = true
         for (i in nums.indices) {
             if (elementBoxes[i].number.toInt() == target) {
                 elementBoxes[i].setAsFoundBox()
                 elementBoxes[i].setAsNormalBox()
                 foundIndex = i
+                isRunning = false
                 break
             }
             else {
@@ -100,5 +112,6 @@ class LinearSearchFragment : Fragment(R.layout.fragment_linear_search) {
                 elementBoxes[i].setAsNormalBox()
             }
         }
+        isRunning = false
     }
 }

@@ -16,15 +16,15 @@ class ElementBox(
     val number: String
 ): View(mContext) {
     private var boxType = BoxType.NORMAL
-    private val borderColor = ResourcesCompat.getColor(resources, R.color.black, null)
-    private val redBorder = ResourcesCompat.getColor(resources, R.color.red, null)
-    private val greenBorder = ResourcesCompat.getColor(resources, R.color.green, null)
+    private val borderColor = ResourcesCompat.getColor(resources, R.color.white, null)
+    private val redBorder = ResourcesCompat.getColor(resources, R.color.Beige3, null)
+    private val greenBorder = ResourcesCompat.getColor(resources, R.color.LightGreen3, null)
 
     private val paint1 = Paint().apply {
         isAntiAlias = true
         isDither = true
         color = borderColor
-        strokeWidth = 2f
+        strokeWidth = 4f
         style = Paint.Style.STROKE
     }
 
@@ -58,13 +58,16 @@ class ElementBox(
         super.onDraw(canvas)
         when(boxType) {
             BoxType.ACTIVE -> {
-                canvas?.drawRect(leftOfBox, topOfBox, leftOfBox + boxWidth, topOfBox + boxWidth, redPaint)
+//                canvas?.drawRect(leftOfBox, topOfBox, leftOfBox + boxWidth, topOfBox + boxWidth, redPaint)
+                canvas?.drawRoundRect(leftOfBox, topOfBox, leftOfBox + boxWidth, topOfBox + boxWidth, 25f, 25f, redPaint)
             }
             BoxType.FOUND -> {
-                canvas?.drawRect(leftOfBox, topOfBox, leftOfBox + boxWidth, topOfBox + boxWidth, greenPaint)
+//                canvas?.drawRect(leftOfBox, topOfBox, leftOfBox + boxWidth, topOfBox + boxWidth, greenPaint)
+                canvas?.drawRoundRect(leftOfBox, topOfBox, leftOfBox + boxWidth, topOfBox + boxWidth, 25f, 25f, greenPaint)
             }
             BoxType.NORMAL -> {
-                canvas?.drawRect(leftOfBox, topOfBox, leftOfBox + boxWidth, topOfBox + boxWidth, paint1)
+//                canvas?.drawRect(leftOfBox, topOfBox, leftOfBox + boxWidth, topOfBox + boxWidth, paint1)
+                canvas?.drawRoundRect(leftOfBox, topOfBox, leftOfBox + boxWidth, topOfBox + boxWidth, 25f, 25f, paint1)
             }
         }
 

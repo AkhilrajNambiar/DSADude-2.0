@@ -16,12 +16,14 @@ import com.google.android.material.card.MaterialCardView
 
 class AlgorithmsAdapter(
     private val items: List<AlgorithmItem>,
-    private val navController: NavController
+    private val navController: NavController,
+    private val algorithmClickListener: AlgorithmClickListener
 ): RecyclerView.Adapter<AlgorithmsAdapter.AlgorithmViewHolder>() {
 
     inner class AlgorithmViewHolder(
-        itemView: View
-    ): RecyclerView.ViewHolder(itemView) {
+        itemView: View,
+        algorithmClickListener: AlgorithmClickListener
+    ): RecyclerView.ViewHolder(itemView), View.OnClickListener {
         private val dsImage = itemView.findViewById<ImageView>(R.id.item_image)
         private val dsName = itemView.findViewById<TextView>(R.id.item_name)
         private val itemCard = itemView.findViewById<MaterialCardView>(R.id.item_card)
@@ -29,23 +31,17 @@ class AlgorithmsAdapter(
         fun bind(item: AlgorithmItem) {
             dsImage.setImageResource(item.image)
             dsName.text = item.name
+            itemCard.setOnClickListener(this)
+        }
 
-            itemCard.setOnClickListener {
-                if (item.name == "Sorting") {
-                    val action = AlgorithmsListFragmentDirections.actionAlgorithmsListFragmentToSortingListFragment()
-                    navController.navigate(action)
-                }
-                else if (item.name == "Searching") {
-                    val action = AlgorithmsListFragmentDirections.actionAlgorithmsListFragmentToSearchingListFragment()
-                    navController.navigate(action)
-                }
-            }
+        override fun onClick(p0: View?) {
+            algorithmClickListener.itemClick(adapterPosition)
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AlgorithmViewHolder {
         val layout = LayoutInflater.from(parent.context).inflate(R.layout.list_item, parent, false)
-        return AlgorithmViewHolder(layout)
+        return AlgorithmViewHolder(layout, algorithmClickListener)
     }
 
     override fun onBindViewHolder(holder: AlgorithmViewHolder, position: Int) {
@@ -55,6 +51,10 @@ class AlgorithmsAdapter(
 
     override fun getItemCount(): Int {
         return items.size
+    }
+
+    interface AlgorithmClickListener {
+        fun itemClick(position: Int)
     }
 
 }

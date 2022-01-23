@@ -19,4 +19,9 @@
         <item name="windowNoTitle">true</item>
     </style>
 
+    <style name="TextInputLayoutStyle" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
+        <item name="boxStrokeColor">@color/PaleBlue</item>
+        <item name="boxStrokeWidth">2dp</item>
+    </style>
+
 </resources>
