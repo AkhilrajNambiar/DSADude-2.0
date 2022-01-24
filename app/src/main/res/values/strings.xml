@@ -17,4 +17,6 @@
     <string name="start_index">Start</string>
     <string name="end">End</string>
     <string name="mid">Mid</string>
+    <string name="item_not_found">Item not found in array!</string>
+    <string name="item_found">Item found at index %d</string>
 </resources>

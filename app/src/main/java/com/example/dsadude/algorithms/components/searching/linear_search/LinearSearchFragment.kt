@@ -80,11 +80,11 @@ class LinearSearchFragment : Fragment(R.layout.fragment_linear_search) {
                     lifecycleScope.launch {
                         linearSearch(boxes, itemToSearch.editableText.toString().toInt())
                         if (foundIndex == -1) {
-                            foundOrNot.text = "Item not found in array!"
+                            foundOrNot.text = resources.getString(R.string.item_not_found)
                             Log.d("foundIndex", "Item not found!")
                         }
                         else {
-                            foundOrNot.text = "Item found at index $foundIndex"
+                            foundOrNot.text = resources.getString(R.string.item_found, foundIndex)
                             Log.d("foundIndex", "Item found at index $foundIndex")
                         }
                     }

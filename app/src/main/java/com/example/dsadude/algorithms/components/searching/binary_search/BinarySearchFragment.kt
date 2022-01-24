@@ -82,10 +82,10 @@ class BinarySearchFragment : Fragment(R.layout.fragment_binary_search) {
                         binarySearch(boxes, itemToSearch.editableText.toString().toInt())
                         Log.d("binarySearch", "foundIndex $foundIndex")
                         if (foundIndex == -1) {
-                            foundOrNot.text = "Item not found in array!"
+                            foundOrNot.text = resources.getString(R.string.item_not_found)
                         }
                         else {
-                            foundOrNot.text = "Item found at index $foundIndex"
+                            foundOrNot.text = resources.getString(R.string.item_found, foundIndex)
                         }
                     }
                 }
@@ -97,19 +97,37 @@ class BinarySearchFragment : Fragment(R.layout.fragment_binary_search) {
     }
 
     private suspend fun binarySearch(arr: List<Int>, target: Int){
+        // Searching has started
         isRunning = true
         var prevStart = 0
         var prevEnd = 0
         var start = 0
         var end = arr.size - 1
         var mid = 0
+        // The itemFound variable helps after the end of while loop
+        // if the while loop breaks after finding mid, then its value
+        // is true, else if while loop ends normally then itemFound is
+        // false. This additional check helps in reducing the delay
+        // that happens at the end of while loop
         var itemFound = false
+        // If target is too small stop searching and return
+        if (target < arr[start]) {
+            isRunning = false
+            return
+        }
+        // if target is too big then stop searching and return
+        else if (target > arr[end]) {
+            isRunning = false
+            return
+        }
         Log.d("binarySearch", "target $target")
         elementBoxes[start].setAsStartBox()
         elementBoxes[end].setAsEndBox()
         while (start <= end) {
             elementBoxes[start].setAsStartBox()
             elementBoxes[end].setAsEndBox()
+            // prevMid unselects the previous mid valued box
+            // same is done by prevStart and prevEnd
             prevMid = mid
             mid = (start + end) / 2
             elementBoxes[prevMid].setAsNormalBox()
@@ -140,6 +158,7 @@ class BinarySearchFragment : Fragment(R.layout.fragment_binary_search) {
             elementBoxes[start].setAsNormalBox()
             elementBoxes[end].setAsNormalBox()
         }
+        // searching has stopped
         isRunning = false
     }
 }
