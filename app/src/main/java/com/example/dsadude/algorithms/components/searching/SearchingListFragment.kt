@@ -19,7 +19,8 @@ class SearchingListFragment : Fragment(R.layout.fragment_searching_list), Search
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val items = listOf(
-            SearchingItem("Linear", R.drawable.linear_search)
+            SearchingItem("Linear", R.drawable.linear_search),
+            SearchingItem("Binary", R.drawable.binary_search)
         )
         itemAdapter = SearchingAdapter(items, this)
         val recyclerView = view.findViewById<RecyclerView>(R.id.searching_algos_rv)
@@ -33,6 +34,10 @@ class SearchingListFragment : Fragment(R.layout.fragment_searching_list), Search
         when(position) {
             0 -> {
                 val action = SearchingListFragmentDirections.actionSearchingListFragmentToLinearSearchFragment()
+                findNavController().navigate(action)
+            }
+            1 -> {
+                val action = SearchingListFragmentDirections.actionSearchingListFragmentToBinarySearchFragment()
                 findNavController().navigate(action)
             }
             else -> {

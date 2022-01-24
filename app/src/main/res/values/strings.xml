@@ -13,4 +13,8 @@
     <string name="search">Search</string>
     <string name="linear_search">Linear Search</string>
     <string name="searching_algorithms">Searching Algorithms</string>
+    <string name="binary_search">Binary Search</string>
+    <string name="start_index">Start</string>
+    <string name="end">End</string>
+    <string name="mid">Mid</string>
 </resources>

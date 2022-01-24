@@ -1,4 +1,4 @@
-package com.example.dsadude.algorithms.components.searching.linear_search
+package com.example.dsadude.algorithms.components.searching.binary_search
 
 import android.os.Bundle
 import android.util.Log
@@ -12,52 +12,52 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.lifecycle.lifecycleScope
 import com.example.dsadude.R
-import com.example.dsadude.algorithms.components.searching.util.LinearSearchElementBox
+import com.example.dsadude.algorithms.components.searching.util.BinarySearchElementBox
 import com.google.android.material.textfield.TextInputEditText
 import kotlinx.coroutines.launch
 
-class LinearSearchFragment : Fragment(R.layout.fragment_linear_search) {
 
-    private var leftOfBox = 20f
-    private var topOfBox = 100f
+class BinarySearchFragment : Fragment(R.layout.fragment_binary_search) {
+    private var leftOfBox = 10f
+    private var topOfBox = 75f
     private val boxWidth = 120f
     private var boxes = mutableListOf<Int>()
     private var foundIndex = -1
+    private var prevMid = 0
     private var isRunning = false
 
     private val uniqueBoxes = mutableSetOf<Int>()
 
-    private val elementBoxes = mutableListOf<LinearSearchElementBox>()
+    private val elementBoxes = mutableListOf<BinarySearchElementBox>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_linear_search, container, false)
+        return inflater.inflate(R.layout.fragment_binary_search, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        val sortingLabel = view.findViewById<TextView>(R.id.sorting_label)
         val visualContainer = view.findViewById<FrameLayout>(R.id.visual_container)
-
         val screenWidth = requireActivity().windowManager.defaultDisplay.width
         val screenHeight = requireActivity().windowManager.defaultDisplay.height
-
         while (uniqueBoxes.size <= 24) {
             uniqueBoxes.add((10..500).random())
         }
         Log.d("screen", "$screenWidth")
         boxes = uniqueBoxes.toMutableList()
+        boxes.sort()
+
         for (i in boxes) {
-            val linearSearchElementBox: LinearSearchElementBox = LinearSearchElementBox(requireContext(), leftOfBox, topOfBox, boxWidth, i.toString())
-            elementBoxes.add(linearSearchElementBox)
+            val elementBox = BinarySearchElementBox(requireContext(), leftOfBox, topOfBox, boxWidth, i.toString())
+            elementBoxes.add(elementBox)
             leftOfBox += boxWidth + 20
             Log.d("leftOfBox", "leftOfBox: $leftOfBox")
             Log.d("topOfBox", "topOfBox: $topOfBox")
             if ((leftOfBox + boxWidth) > screenWidth) {
                 topOfBox += 150f
-                leftOfBox = 20f
+                leftOfBox = 10f
             }
         }
         Log.d("boxes", "boxes: $boxes")
@@ -65,6 +65,7 @@ class LinearSearchFragment : Fragment(R.layout.fragment_linear_search) {
         for (i in elementBoxes) {
             visualContainer.addView(i)
         }
+
         val startSearchingBtn = view.findViewById<Button>(R.id.start_searching)
         val itemToSearch = view.findViewById<TextInputEditText>(R.id.number_to_search_text)
         val foundOrNot = view.findViewById<TextView>(R.id.found_or_not)
@@ -78,14 +79,13 @@ class LinearSearchFragment : Fragment(R.layout.fragment_linear_search) {
                 }
                 else {
                     lifecycleScope.launch {
-                        linearSearch(boxes, itemToSearch.editableText.toString().toInt())
+                        binarySearch(boxes, itemToSearch.editableText.toString().toInt())
+                        Log.d("binarySearch", "foundIndex $foundIndex")
                         if (foundIndex == -1) {
                             foundOrNot.text = "Item not found in array!"
-                            Log.d("foundIndex", "Item not found!")
                         }
                         else {
                             foundOrNot.text = "Item found at index $foundIndex"
-                            Log.d("foundIndex", "Item found at index $foundIndex")
                         }
                     }
                 }
@@ -96,20 +96,49 @@ class LinearSearchFragment : Fragment(R.layout.fragment_linear_search) {
         }
     }
 
-    private suspend fun linearSearch(nums: List<Int>, target: Int) {
+    private suspend fun binarySearch(arr: List<Int>, target: Int){
         isRunning = true
-        for (i in nums.indices) {
-            if (elementBoxes[i].number.toInt() == target) {
-                elementBoxes[i].setAsFoundBox()
-                elementBoxes[i].setAsNormalBox()
-                foundIndex = i
-                isRunning = false
+        var prevStart = 0
+        var prevEnd = 0
+        var start = 0
+        var end = arr.size - 1
+        var mid = 0
+        var itemFound = false
+        Log.d("binarySearch", "target $target")
+        elementBoxes[start].setAsStartBox()
+        elementBoxes[end].setAsEndBox()
+        while (start <= end) {
+            elementBoxes[start].setAsStartBox()
+            elementBoxes[end].setAsEndBox()
+            prevMid = mid
+            mid = (start + end) / 2
+            elementBoxes[prevMid].setAsNormalBox()
+            elementBoxes[mid].setAsMidBox()
+            if (arr[mid] == target) {
+                foundIndex = mid
+                itemFound = true
+                elementBoxes[mid].setAsNormalBox()
+                elementBoxes[start].setAsNormalBox()
+                elementBoxes[end].setAsNormalBox()
                 break
             }
-            else {
-                elementBoxes[i].setAsActiveBox()
-                elementBoxes[i].setAsNormalBox()
+            if (target > arr[mid]) {
+                prevStart = start
+                start = mid + 1
+                elementBoxes[prevStart].setAsNormalBox()
+                elementBoxes[start].setAsStartBox()
             }
+            else {
+                prevEnd = end
+                end = mid - 1
+                elementBoxes[prevEnd].setAsNormalBox()
+                elementBoxes[end].setAsEndBox()
+            }
+        }
+        if (!itemFound) {
+            elementBoxes[mid].setAsNormalBox()
+            elementBoxes[start].setAsNormalBox()
+            elementBoxes[end].setAsNormalBox()
         }
         isRunning = false
     }

@@ -86,9 +86,16 @@
         <action
             android:id="@+id/action_searchingListFragment_to_linearSearchFragment"
             app:destination="@id/linearSearchFragment" />
+        <action
+            android:id="@+id/action_searchingListFragment_to_binarySearchFragment"
+            app:destination="@id/binarySearchFragment" />
     </fragment>
     <fragment
         android:id="@+id/linearSearchFragment"
         android:name="com.example.dsadude.algorithms.components.searching.linear_search.LinearSearchFragment"
         android:label="LinearSearchFragment" />
+    <fragment
+        android:id="@+id/binarySearchFragment"
+        android:name="com.example.dsadude.algorithms.components.searching.binary_search.BinarySearchFragment"
+        android:label="BinarySearchFragment" />
 </navigation>
