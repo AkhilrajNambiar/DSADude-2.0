@@ -20,7 +20,7 @@ class LinearSearchFragment : Fragment(R.layout.fragment_linear_search) {
 
     private var leftOfBox = 20f
     private var topOfBox = 100f
-    private val boxWidth = 120f
+    private var boxWidth = 0f
     private var boxes = mutableListOf<Int>()
     private var foundIndex = -1
     private var isRunning = false
@@ -44,6 +44,8 @@ class LinearSearchFragment : Fragment(R.layout.fragment_linear_search) {
         val screenWidth = requireActivity().windowManager.defaultDisplay.width
         val screenHeight = requireActivity().windowManager.defaultDisplay.height
 
+        boxWidth = screenWidth / 6f
+
         while (uniqueBoxes.size <= 24) {
             uniqueBoxes.add((10..500).random())
         }
@@ -56,7 +58,7 @@ class LinearSearchFragment : Fragment(R.layout.fragment_linear_search) {
             Log.d("leftOfBox", "leftOfBox: $leftOfBox")
             Log.d("topOfBox", "topOfBox: $topOfBox")
             if ((leftOfBox + boxWidth) > screenWidth) {
-                topOfBox += 150f
+                topOfBox += boxWidth + 30f
                 leftOfBox = 20f
             }
         }

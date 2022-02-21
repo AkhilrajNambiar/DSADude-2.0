@@ -1,6 +1,7 @@
 package com.example.dsadude.algorithms.components.sorting.components.quick_sort
 
 import android.content.Context
+import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.Paint
 import android.media.MediaPlayer
@@ -52,10 +53,13 @@ class QuickSortCanvas(private val mContext: Context): View(mContext) {
         style = Paint.Style.FILL
     }
 
-    init {
+    override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
+        super.onSizeChanged(w, h, oldw, oldh)
+        val minHeight = height / 6
+        val maxHeight = (3 * height)/4
         // To ensure unique elements and hence proper animation
         while (uniqueBoxes.size <= 11) {
-            uniqueBoxes.add((100..1000).random())
+            uniqueBoxes.add((minHeight..maxHeight).random())
         }
         boxes = uniqueBoxes.toMutableList()
         Log.d("quickSort", boxes.toString())
@@ -71,40 +75,32 @@ class QuickSortCanvas(private val mContext: Context): View(mContext) {
         }
     }
 
-//    override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
-//        super.onSizeChanged(w, h, oldw, oldh)
-//
-//        if (::extraBitmap.isInitialized) extraBitmap.recycle()
-//
-//        extraBitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
-//        extraCanvas = Canvas(extraBitmap)
-//        extraCanvas.drawColor(backGroundColor)
-//    }
-
     override fun onDraw(canvas: Canvas?) {
         super.onDraw(canvas)
         canvas?.drawColor(backGroundColor)
         var boxLeft = 10f
+        val boxWidth = width / 15f
+        val gap = boxWidth / 4
 
         for (i in boxes) {
             if (boxes.indexOf(i) == bb.pivotElement) {
                 Log.d("quickSort", "pivotElement value $i, pIndex ${bb.pivotElement}")
-                canvas?.drawRect(boxLeft, (height - i).toFloat(), boxLeft+50, height - 10f, paint2)
-                boxLeft += 60f
+                canvas?.drawRect(boxLeft, (height - i).toFloat(), boxLeft + boxWidth, height - 10f, paint2)
+                boxLeft += boxWidth + gap
             }
             else if (boxes.indexOf(i) == bb.smallerIndex) {
                 Log.d("quickSort", "smallerElement value $i, smallerIndex ${bb.smallerIndex}")
-                canvas?.drawRect(boxLeft, (height - i).toFloat(), boxLeft+50, height - 10f, paint3)
-                boxLeft += 60f
+                canvas?.drawRect(boxLeft, (height - i).toFloat(), boxLeft + boxWidth, height - 10f, paint3)
+                boxLeft += boxWidth + gap
             }
             else if (boxes.indexOf(i) == bb.pIndex) {
                 Log.d("quickSort", "pIndex value $i, pIndex ${bb.pIndex}")
-                canvas?.drawRect(boxLeft, (height - i).toFloat(), boxLeft+50, height - 10f, paint4)
-                boxLeft += 60f
+                canvas?.drawRect(boxLeft, (height - i).toFloat(), boxLeft + boxWidth, height - 10f, paint4)
+                boxLeft += boxWidth + gap
             }
             else {
-                canvas?.drawRect(boxLeft, (height - i).toFloat(), boxLeft+50, height - 10f, paint1)
-                boxLeft += 60f
+                canvas?.drawRect(boxLeft, (height - i).toFloat(), boxLeft + boxWidth, height - 10f, paint1)
+                boxLeft += boxWidth + gap
             }
         }
     }

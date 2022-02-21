@@ -6,10 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.FrameLayout
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import androidx.lifecycle.lifecycleScope
 import com.example.dsadude.R
 import com.example.dsadude.algorithms.components.searching.util.BinarySearchElementBox
@@ -20,7 +17,7 @@ import kotlinx.coroutines.launch
 class BinarySearchFragment : Fragment(R.layout.fragment_binary_search) {
     private var leftOfBox = 10f
     private var topOfBox = 75f
-    private val boxWidth = 120f
+    private var boxWidth = 0f
     private var boxes = mutableListOf<Int>()
     private var foundIndex = -1
     private var prevMid = 0
@@ -42,6 +39,9 @@ class BinarySearchFragment : Fragment(R.layout.fragment_binary_search) {
         val visualContainer = view.findViewById<FrameLayout>(R.id.visual_container)
         val screenWidth = requireActivity().windowManager.defaultDisplay.width
         val screenHeight = requireActivity().windowManager.defaultDisplay.height
+
+        boxWidth = screenWidth / 6f
+
         while (uniqueBoxes.size <= 24) {
             uniqueBoxes.add((10..500).random())
         }
@@ -52,11 +52,13 @@ class BinarySearchFragment : Fragment(R.layout.fragment_binary_search) {
         for (i in boxes) {
             val elementBox = BinarySearchElementBox(requireContext(), leftOfBox, topOfBox, boxWidth, i.toString())
             elementBoxes.add(elementBox)
-            leftOfBox += boxWidth + 20
+            // Set the new left after completing the entire box, and then
+            // giving some spacing. boxWidth / 5f works nicely
+            leftOfBox += boxWidth + (boxWidth / 5f)
             Log.d("leftOfBox", "leftOfBox: $leftOfBox")
             Log.d("topOfBox", "topOfBox: $topOfBox")
             if ((leftOfBox + boxWidth) > screenWidth) {
-                topOfBox += 150f
+                topOfBox += boxWidth + (boxWidth / 6f)
                 leftOfBox = 10f
             }
         }

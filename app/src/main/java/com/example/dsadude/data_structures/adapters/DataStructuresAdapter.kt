@@ -8,26 +8,35 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.dsadude.R
 import com.example.dsadude.data_structures.models.DataStructureItem
+import com.google.android.material.card.MaterialCardView
 
 class DataStructuresAdapter(
-    private val items: List<DataStructureItem>
+    private val items: List<DataStructureItem>,
+    private var dataStructureClickListener: DataStructureClickListener
 ): RecyclerView.Adapter<DataStructuresAdapter.DataStructureViewHolder>() {
 
     inner class DataStructureViewHolder(
-        itemView: View
-    ): RecyclerView.ViewHolder(itemView) {
+        itemView: View,
+        private var dataStructureClickListener: DataStructureClickListener
+    ): RecyclerView.ViewHolder(itemView), View.OnClickListener {
         private val dsImage = itemView.findViewById<ImageView>(R.id.item_image)
         private val dsName = itemView.findViewById<TextView>(R.id.item_name)
+        private val itemCard = itemView.findViewById<MaterialCardView>(R.id.item_card)
 
         fun bind(item: DataStructureItem) {
             dsImage.setImageResource(item.image)
             dsName.text = item.name
+            itemCard.setOnClickListener(this)
+        }
+
+        override fun onClick(p0: View?) {
+            dataStructureClickListener.onClick(adapterPosition)
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DataStructureViewHolder {
         val layout = LayoutInflater.from(parent.context).inflate(R.layout.list_item, parent, false)
-        return DataStructureViewHolder(layout)
+        return DataStructureViewHolder(layout, dataStructureClickListener)
     }
 
     override fun onBindViewHolder(holder: DataStructureViewHolder, position: Int) {
@@ -38,4 +47,8 @@ class DataStructuresAdapter(
     override fun getItemCount(): Int {
         return items.size
     }
+}
+
+interface DataStructureClickListener {
+    fun onClick(position: Int)
 }

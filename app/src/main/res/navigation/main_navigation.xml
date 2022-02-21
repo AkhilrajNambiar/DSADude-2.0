@@ -21,7 +21,11 @@
         android:id="@+id/dataStructuresListFragment"
         android:name="com.example.dsadude.data_structures.DataStructuresListFragment"
         android:label="fragment_data_structures_list"
-        tools:layout="@layout/fragment_data_structures_list" />
+        tools:layout="@layout/fragment_data_structures_list" >
+        <action
+            android:id="@+id/action_dataStructuresListFragment_to_arrayFragment"
+            app:destination="@id/arrayFragment" />
+    </fragment>
     <fragment
         android:id="@+id/algorithmsListFragment"
         android:name="com.example.dsadude.algorithms.AlgorithmsListFragment"
@@ -98,4 +102,8 @@
         android:id="@+id/binarySearchFragment"
         android:name="com.example.dsadude.algorithms.components.searching.binary_search.BinarySearchFragment"
         android:label="BinarySearchFragment" />
+    <fragment
+        android:id="@+id/arrayFragment"
+        android:name="com.example.dsadude.data_structures.components.array.ArrayFragment"
+        android:label="ArrayFragment" />
 </navigation>

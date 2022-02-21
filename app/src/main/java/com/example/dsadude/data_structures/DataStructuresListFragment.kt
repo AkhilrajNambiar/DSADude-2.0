@@ -5,13 +5,15 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.dsadude.R
+import com.example.dsadude.data_structures.adapters.DataStructureClickListener
 import com.example.dsadude.data_structures.adapters.DataStructuresAdapter
 import com.example.dsadude.data_structures.models.DataStructureItem
 
-class DataStructuresListFragment : Fragment(R.layout.fragment_data_structures_list) {
+class DataStructuresListFragment : Fragment(R.layout.fragment_data_structures_list), DataStructureClickListener {
 
     private lateinit var itemAdapter: DataStructuresAdapter
 
@@ -32,11 +34,20 @@ class DataStructuresListFragment : Fragment(R.layout.fragment_data_structures_li
             DataStructureItem("Tree", R.drawable.tree),
             DataStructureItem("Graph", R.drawable.graph)
         )
-        itemAdapter = DataStructuresAdapter(dsList)
+        itemAdapter = DataStructuresAdapter(dsList, this)
         val recyclerView = view.findViewById<RecyclerView>(R.id.data_strutures_rv)
         recyclerView.apply {
             layoutManager = LinearLayoutManager(requireContext())
             adapter = itemAdapter
+        }
+    }
+
+    override fun onClick(position: Int) {
+        when(position) {
+            0 -> {
+                val action = DataStructuresListFragmentDirections.actionDataStructuresListFragmentToArrayFragment()
+                findNavController().navigate(action)
+            }
         }
     }
 

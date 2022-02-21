@@ -19,4 +19,16 @@
     <string name="mid">Mid</string>
     <string name="item_not_found">Item not found in array!</string>
     <string name="item_found">Item found at index %d</string>
+    <string name="item_value">Item Value</string>
+    <string name="position_in_array">Position</string>
+    <string name="perform">Perform</string>
+    <string name="operations">Operations</string>
+    <string name="dynamic_array">Dynamic Array</string>
+    <string name="dummy">Dummy String</string>
+    <string-array name="array_operations">
+        <item>Append</item>
+        <item>Insert</item>
+        <item>Pop</item>
+        <item>Remove</item>
+    </string-array>
 </resources>

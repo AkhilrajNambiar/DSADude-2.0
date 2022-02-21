@@ -46,9 +46,12 @@ class InsertionSortCanvas(private val mContext: Context): View(mContext) {
         style = Paint.Style.FILL
     }
 
-    init {
+    override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
+        super.onSizeChanged(w, h, oldw, oldh)
+        val minHeight = height / 6
+        val maxHeight = (3 * height)/4
         while (uniqueBoxes.size <= 11) {
-            uniqueBoxes.add((100..1000).random())
+            uniqueBoxes.add((minHeight..maxHeight).random())
         }
         boxes = uniqueBoxes.toMutableList()
         bb = InsertionSortBoxList(
@@ -62,35 +65,27 @@ class InsertionSortCanvas(private val mContext: Context): View(mContext) {
         }
     }
 
-//    override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
-//        super.onSizeChanged(w, h, oldw, oldh)
-//
-//        if (::extraBitmap.isInitialized) extraBitmap.recycle()
-//
-//        extraBitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
-//        extraCanvas = Canvas(extraBitmap)
-//        extraCanvas.drawColor(backGroundColor)
-//    }
-
     override fun onDraw(canvas: Canvas?) {
         super.onDraw(canvas)
         canvas?.drawColor(backGroundColor)
         var boxLeft = 10f
+        val boxWidth = width / 15f
+        val gap = boxWidth / 4
 
         for (i in boxes) {
             if (boxes.indexOf(i) == bb.activeElement) {
                 Log.d("insertionSort", "activeElement value $i, activeIndex ${bb.activeElement}")
-                canvas?.drawRect(boxLeft, (height - i).toFloat(), boxLeft+50, height - 10f, paint2)
-                boxLeft += 60f
+                canvas?.drawRect(boxLeft, (height - i).toFloat(), boxLeft + boxWidth, height - 10f, paint2)
+                boxLeft += boxWidth + gap
             }
             else if (boxes.indexOf(i) == bb.tempElement1) {
                 Log.d("insertionSort", "tempElement1 value $i, tempIndex1 ${bb.tempElement1}")
-                canvas?.drawRect(boxLeft, (height - i).toFloat(), boxLeft+50, height - 10f, paint3)
-                boxLeft += 60f
+                canvas?.drawRect(boxLeft, (height - i).toFloat(), boxLeft + boxWidth, height - 10f, paint3)
+                boxLeft += boxWidth + gap
             }
             else {
-                canvas?.drawRect(boxLeft, (height - i).toFloat(), boxLeft+50, height - 10f, paint1)
-                boxLeft += 60f
+                canvas?.drawRect(boxLeft, (height - i).toFloat(), boxLeft + boxWidth, height - 10f, paint1)
+                boxLeft += boxWidth + gap
             }
         }
     }
