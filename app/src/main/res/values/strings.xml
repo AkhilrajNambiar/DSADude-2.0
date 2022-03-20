@@ -27,6 +27,10 @@
     <string name="dummy">Dummy String</string>
     <string name="stack">Stack</string>
     <string name="top">Top</string>
+    <string name="front">Front</string>
+    <string name="rear">Rear</string>
+    <string name="queue">Queue</string>
+    <string name="normal">Normal</string>
     <string-array name="array_operations">
         <item>Append</item>
         <item>Insert</item>
@@ -43,5 +47,9 @@
     <string-array name="stack_operations">
         <item>Push</item>
         <item>Pop</item>
+    </string-array>
+    <string-array name="queue_operations">
+        <item>Enqueue</item>
+        <item>Dequeue</item>
     </string-array>
 </resources>

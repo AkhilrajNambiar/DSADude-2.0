@@ -31,6 +31,9 @@
         <action
             android:id="@+id/action_dataStructuresListFragment_to_stackFragment"
             app:destination="@id/stackFragment" />
+        <action
+            android:id="@+id/action_dataStructuresListFragment_to_queueFragment"
+            app:destination="@id/queueFragment" />
     </fragment>
     <fragment
         android:id="@+id/algorithmsListFragment"
@@ -120,4 +123,8 @@
         android:id="@+id/stackFragment"
         android:name="com.example.dsadude.data_structures.components.stack.StackFragment"
         android:label="StackFragment" />
+    <fragment
+        android:id="@+id/queueFragment"
+        android:name="com.example.dsadude.data_structures.components.queue.QueueFragment"
+        android:label="QueueFragment" />
 </navigation>

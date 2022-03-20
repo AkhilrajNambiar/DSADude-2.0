@@ -56,6 +56,10 @@ class DataStructuresListFragment : Fragment(R.layout.fragment_data_structures_li
                 val action = DataStructuresListFragmentDirections.actionDataStructuresListFragmentToStackFragment()
                 findNavController().navigate(action)
             }
+            3 -> {
+                val action = DataStructuresListFragmentDirections.actionDataStructuresListFragmentToQueueFragment()
+                findNavController().navigate(action)
+            }
         }
     }
 

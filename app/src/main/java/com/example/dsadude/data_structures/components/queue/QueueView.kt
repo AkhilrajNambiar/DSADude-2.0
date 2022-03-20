@@ -1,4 +1,4 @@
-package com.example.dsadude.data_structures.components.stack
+package com.example.dsadude.data_structures.components.queue
 
 import android.content.Context
 import android.graphics.Canvas
@@ -10,7 +10,7 @@ import android.widget.Toast
 import androidx.core.content.res.ResourcesCompat
 import com.example.dsadude.R
 
-class StackView : View {
+class QueueView : View {
 
     private val mContext: Context
 
@@ -20,7 +20,8 @@ class StackView : View {
         this.blueColor = ResourcesCompat.getColor(resources, R.color.BlueViolet3, null)
         this.greenColor = ResourcesCompat.getColor(resources, R.color.LightGreen3, null)
         this.redColor = ResourcesCompat.getColor(resources, R.color.PrettyPink, null)
-        this.stackValues = mutableListOf<Int>()
+        this.yellowColor = ResourcesCompat.getColor(resources, R.color.SuperYellow, null)
+        this.queueValues = mutableListOf<Int>()
         this.paint1 = Paint().apply {
             isAntiAlias = true
             isDither = true
@@ -54,6 +55,14 @@ class StackView : View {
             style = Paint.Style.STROKE
             textAlign = Paint.Align.CENTER
         }
+        this.yellowPaint = Paint().apply {
+            isAntiAlias = true
+            isDither = true
+            color = yellowColor
+            strokeWidth = 8f
+            style = Paint.Style.STROKE
+            textAlign = Paint.Align.CENTER
+        }
     }
 
     private var firstElementLeft = 0f
@@ -63,13 +72,16 @@ class StackView : View {
     private val blueColor: Int
     private val greenColor: Int
     private val redColor: Int
-    private val stackValues: MutableList<Int>
+    private val yellowColor: Int
+    private val queueValues: MutableList<Int>
 
     private val paint1: Paint
 
     private val paint2: Paint
 
     private val paint3: Paint
+
+    private val yellowPaint: Paint
 
     private val redPaint: Paint
 
@@ -81,32 +93,47 @@ class StackView : View {
         firstElementTop = 50f
         firstElementLeft = 10f
         Log.d("Stack", "onDraw called!")
-        for ( i in 0 until stackValues.size ) {
-            if (i == stackValues.lastIndex) {
-                // Draw the element box
-                canvas?.drawRoundRect(firstElementLeft, firstElementTop, firstElementLeft + boxWidth, firstElementTop + boxWidth, 25f, 25f, redPaint)
-                // Draw the circle to contain the index
-                canvas?.drawCircle(firstElementLeft + boxWidth / 2f, firstElementTop + boxWidth + boxWidth/2f, boxWidth / 2f, paint2)
-                // Draw the item value within the box
-                canvas?.drawText(
-                    stackValues[i].toString(),
-                    (firstElementLeft + firstElementLeft + boxWidth) / 2f, // calculated the mean of starting position and ending position
-                    firstElementTop + boxWidth / 2f + paint1.measureText("22", 0, 2) / 2f,
-                    paint1
-                )
-            }
-            else {
-                // Draw the element box
-                canvas?.drawRoundRect(firstElementLeft, firstElementTop, firstElementLeft + boxWidth, firstElementTop + boxWidth, 25f, 25f, paint3)
-                // Draw the circle to contain the index
-                canvas?.drawCircle(firstElementLeft + boxWidth / 2f, firstElementTop + boxWidth + boxWidth/2f, boxWidth / 2f, paint2)
-                // Draw the item value within the box
-                canvas?.drawText(
-                    stackValues[i].toString(),
-                    (firstElementLeft + firstElementLeft + boxWidth) / 2f, // calculated the mean of starting position and ending position
-                    firstElementTop + boxWidth / 2f + paint1.measureText("22", 0, 2) / 2f,
-                    paint1
-                )
+        for ( i in 0 until queueValues.size ) {
+            when(i) {
+                queueValues.lastIndex -> {
+                    // Draw the rear element box
+                    canvas?.drawRoundRect(firstElementLeft, firstElementTop, firstElementLeft + boxWidth, firstElementTop + boxWidth, 25f, 25f, yellowPaint)
+                    // Draw the circle to contain the index
+                    canvas?.drawCircle(firstElementLeft + boxWidth / 2f, firstElementTop + boxWidth + boxWidth/2f, boxWidth / 2f, paint2)
+                    // Draw the item value within the box
+                    canvas?.drawText(
+                        queueValues[i].toString(),
+                        (firstElementLeft + firstElementLeft + boxWidth) / 2f, // calculated the mean of starting position and ending position
+                        firstElementTop + boxWidth / 2f + paint1.measureText("22", 0, 2) / 2f,
+                        paint1
+                    )
+                }
+                0 -> {
+                    // Draw the front element box
+                    canvas?.drawRoundRect(firstElementLeft, firstElementTop, firstElementLeft + boxWidth, firstElementTop + boxWidth, 25f, 25f, redPaint)
+                    // Draw the circle to contain the index
+                    canvas?.drawCircle(firstElementLeft + boxWidth / 2f, firstElementTop + boxWidth + boxWidth/2f, boxWidth / 2f, paint2)
+                    // Draw the item value within the box
+                    canvas?.drawText(
+                        queueValues[i].toString(),
+                        (firstElementLeft + firstElementLeft + boxWidth) / 2f, // calculated the mean of starting position and ending position
+                        firstElementTop + boxWidth / 2f + paint1.measureText("22", 0, 2) / 2f,
+                        paint1
+                    )
+                }
+                else -> {
+                    // Draw the element box
+                    canvas?.drawRoundRect(firstElementLeft, firstElementTop, firstElementLeft + boxWidth, firstElementTop + boxWidth, 25f, 25f, paint3)
+                    // Draw the circle to contain the index
+                    canvas?.drawCircle(firstElementLeft + boxWidth / 2f, firstElementTop + boxWidth + boxWidth/2f, boxWidth / 2f, paint2)
+                    // Draw the item value within the box
+                    canvas?.drawText(
+                        queueValues[i].toString(),
+                        (firstElementLeft + firstElementLeft + boxWidth) / 2f, // calculated the mean of starting position and ending position
+                        firstElementTop + boxWidth / 2f + paint1.measureText("22", 0, 2) / 2f,
+                        paint1
+                    )
+                }
             }
             // Draw the index within the circle
             canvas?.drawText(
@@ -125,19 +152,19 @@ class StackView : View {
         }
     }
 
-    fun push(data: Int) {
-        stackValues.add(data)
-        Toast.makeText(mContext, "$data pushed to stack!", Toast.LENGTH_SHORT).show()
+    fun enqueue(data: Int) {
+        queueValues.add(data)
+        Toast.makeText(mContext, "$data enqueued!", Toast.LENGTH_SHORT).show()
         invalidate()
     }
 
-    fun pop() {
-        val removed = stackValues.removeLastOrNull()
+    fun dequeue() {
+        val removed = queueValues.removeFirstOrNull()
         if (removed == null) {
-            Toast.makeText(mContext, "Cannot pop from empty stack!", Toast.LENGTH_SHORT).show()
+            Toast.makeText(mContext, "Queue is empty!", Toast.LENGTH_SHORT).show()
         }
         else {
-            Toast.makeText(mContext, "$removed popped from stack!", Toast.LENGTH_SHORT).show()
+            Toast.makeText(mContext, "$removed dequeued!", Toast.LENGTH_SHORT).show()
         }
         invalidate()
     }
@@ -148,7 +175,8 @@ class StackView : View {
         this.blueColor = ResourcesCompat.getColor(resources, R.color.BlueViolet3, null)
         this.greenColor = ResourcesCompat.getColor(resources, R.color.LightGreen3, null)
         this.redColor = ResourcesCompat.getColor(resources, R.color.PrettyPink, null)
-        this.stackValues = mutableListOf<Int>()
+        this.yellowColor = ResourcesCompat.getColor(resources, R.color.SuperYellow, null)
+        this.queueValues = mutableListOf<Int>()
         this.paint1 = Paint().apply {
             isAntiAlias = true
             isDither = true
@@ -178,6 +206,14 @@ class StackView : View {
             isAntiAlias = true
             isDither = true
             color = redColor
+            strokeWidth = 8f
+            style = Paint.Style.STROKE
+            textAlign = Paint.Align.CENTER
+        }
+        this.yellowPaint = Paint().apply {
+            isAntiAlias = true
+            isDither = true
+            color = yellowColor
             strokeWidth = 8f
             style = Paint.Style.STROKE
             textAlign = Paint.Align.CENTER
