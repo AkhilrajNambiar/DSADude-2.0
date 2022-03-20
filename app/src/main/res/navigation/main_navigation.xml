@@ -28,6 +28,9 @@
         <action
             android:id="@+id/action_dataStructuresListFragment_to_linkedListFragment"
             app:destination="@id/linkedListFragment" />
+        <action
+            android:id="@+id/action_dataStructuresListFragment_to_stackFragment"
+            app:destination="@id/stackFragment" />
     </fragment>
     <fragment
         android:id="@+id/algorithmsListFragment"
@@ -113,4 +116,8 @@
         android:id="@+id/linkedListFragment"
         android:name="com.example.dsadude.data_structures.components.linked_list.LinkedListFragment"
         android:label="LinkedListFragment" />
+    <fragment
+        android:id="@+id/stackFragment"
+        android:name="com.example.dsadude.data_structures.components.stack.StackFragment"
+        android:label="StackFragment" />
 </navigation>

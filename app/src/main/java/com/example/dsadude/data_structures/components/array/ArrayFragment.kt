@@ -16,8 +16,6 @@ import com.google.android.material.textfield.TextInputLayout
 
 class ArrayFragment : Fragment() {
 
-    private val boxWidth = 120f
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,

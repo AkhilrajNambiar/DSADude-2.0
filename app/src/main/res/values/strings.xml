@@ -25,6 +25,8 @@
     <string name="operations">Operations</string>
     <string name="dynamic_array">Dynamic Array</string>
     <string name="dummy">Dummy String</string>
+    <string name="stack">Stack</string>
+    <string name="top">Top</string>
     <string-array name="array_operations">
         <item>Append</item>
         <item>Insert</item>
@@ -37,5 +39,9 @@
         <item>Delete from Front</item>
         <item>Delete from End</item>
         <item>Search</item>
+    </string-array>
+    <string-array name="stack_operations">
+        <item>Push</item>
+        <item>Pop</item>
     </string-array>
 </resources>
