@@ -4,6 +4,7 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/nambi/AndroidStudioProjects/DSADude2/app/src/main/res/drawable/array.xml" value="0.21666666666666667" />
+        <entry key="..\:/Users/nambi/AndroidStudioProjects/DSADude2/app/src/main/res/drawable/binary_search.xml" value="0.17" />
         <entry key="..\:/Users/nambi/AndroidStudioProjects/DSADude2/app/src/main/res/drawable/curved_rectangle_background.xml" value="0.5625" />
         <entry key="..\:/Users/nambi/AndroidStudioProjects/DSADude2/app/src/main/res/drawable/home_button.xml" value="0.1025" />
         <entry key="..\:/Users/nambi/AndroidStudioProjects/DSADude2/app/src/main/res/drawable/list_item.xml" value="0.21666666666666667" />
@@ -23,6 +24,7 @@
         <entry key="..\:/Users/nambi/AndroidStudioProjects/DSADude2/app/src/main/res/layout/fragment_home.xml" value="0.25" />
         <entry key="..\:/Users/nambi/AndroidStudioProjects/DSADude2/app/src/main/res/layout/fragment_insertion_sort.xml" value="0.1644021739130435" />
         <entry key="..\:/Users/nambi/AndroidStudioProjects/DSADude2/app/src/main/res/layout/fragment_linear_search.xml" value="0.1490036231884058" />
+        <entry key="..\:/Users/nambi/AndroidStudioProjects/DSADude2/app/src/main/res/layout/fragment_linked_list.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/nambi/AndroidStudioProjects/DSADude2/app/src/main/res/layout/fragment_merge_sort.xml" value="0.1644021739130435" />
         <entry key="..\:/Users/nambi/AndroidStudioProjects/DSADude2/app/src/main/res/layout/fragment_quick_sort.xml" value="0.1644021739130435" />
         <entry key="..\:/Users/nambi/AndroidStudioProjects/DSADude2/app/src/main/res/layout/fragment_searching_list.xml" value="0.1490036231884058" />

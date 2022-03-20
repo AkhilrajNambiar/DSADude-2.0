@@ -31,4 +31,11 @@
         <item>Pop</item>
         <item>Remove</item>
     </string-array>
+    <string-array name="ll_operations">
+        <item>Add to Front</item>
+        <item>Add to End</item>
+        <item>Delete from Front</item>
+        <item>Delete from End</item>
+        <item>Search</item>
+    </string-array>
 </resources>

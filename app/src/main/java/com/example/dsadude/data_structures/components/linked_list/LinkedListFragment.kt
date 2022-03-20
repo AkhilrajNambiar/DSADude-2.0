@@ -1,37 +1,37 @@
-package com.example.dsadude.data_structures.components.array
+package com.example.dsadude.data_structures.components.linked_list
 
+import android.content.Context
 import android.os.Bundle
-import android.transition.Fade
-import android.transition.Scene
-import android.transition.TransitionManager
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import android.widget.*
+import androidx.lifecycle.lifecycleScope
 import com.example.dsadude.R
 import com.example.dsadude.data_structures.util.Helper.Companion.checkNumRegex
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
+import kotlinx.coroutines.launch
 
-class ArrayFragment : Fragment() {
 
-    private val boxWidth = 120f
+class LinkedListFragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_array, container, false)
+        return inflater.inflate(R.layout.fragment_linked_list, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val sortingLabel = view.findViewById<TextView>(R.id.sorting_label)
         val visualContainer = view.findViewById<FrameLayout>(R.id.visual_container)
-        val arrayView = ArrayView(requireContext())
-        visualContainer.addView(arrayView)
-        sortingLabel.text = resources.getString(R.string.dynamic_array)
+        val llView = LinkedListView(requireContext())
+        visualContainer.addView(llView)
+        sortingLabel.text = "Linked List"
 
         val performOperation = view.findViewById<Button>(R.id.perform_operation)
         val itemValueField = view.findViewById<TextInputLayout>(R.id.item)
@@ -42,81 +42,76 @@ class ArrayFragment : Fragment() {
         val operationName = view.findViewById<AutoCompleteTextView>(R.id.operation_name)
         val helperText = view.findViewById<TextView>(R.id.found_or_not)
 
-        val operationsList = resources.getStringArray(R.array.array_operations)
+        val operationsList = resources.getStringArray(R.array.ll_operations)
         val arrayAdapter = ArrayAdapter(requireContext(), R.layout.dropdown_item, operationsList)
         operationName.setAdapter(arrayAdapter)
 
         operationName.onItemClickListener =
             AdapterView.OnItemClickListener { adapterView, view, position, id ->
                 when (adapterView?.getItemAtPosition(position)) {
-                    "Append" -> {
+                    "Add to Front" -> {
                         itemPositionField.visibility = View.GONE
                         itemValueField.visibility = View.VISIBLE
                     }
-                    "Insert" -> {
-                        itemPositionField.visibility = View.VISIBLE
+                    "Add to End" -> {
+                        itemPositionField.visibility = View.GONE
                         itemValueField.visibility = View.VISIBLE
                     }
-                    "Pop" -> {
+                    "Delete from Front" -> {
                         itemPositionField.visibility = View.GONE
                         itemValueField.visibility = View.GONE
                     }
-                    "Remove" -> {
-                        itemPositionField.visibility = View.VISIBLE
+                    "Delete from End" -> {
+                        itemPositionField.visibility = View.GONE
+                        itemValueField.visibility = View.GONE
+                    }
+                    "Search" -> {
+                        itemPositionField.visibility = View.GONE
                         itemValueField.visibility = View.VISIBLE
                     }
                 }
             }
-
         performOperation.setOnClickListener {
             when(operationName.text.toString()) {
-                "Append" -> {
+                "Add to Front" -> {
                     if (itemValue.text.isNullOrEmpty()) {
-                        Toast.makeText(requireContext(), "Item value is required to append!", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(requireContext(), "Item value is required!", Toast.LENGTH_SHORT).show()
                     }
                     else {
                         if (checkNumRegex(itemValue.text.toString())) {
-                            arrayView.addItem(itemValue.text.toString().toFloat().toInt())
-                            Toast.makeText(requireContext(), "Append ${itemValue.text.toString().toFloat().toInt()} to array", Toast.LENGTH_SHORT).show()
+                            llView.addItemToStart(itemValue.text.toString().toFloat().toInt())
+                            Toast.makeText(requireContext(), "Added ${itemValue.text.toString().toFloat().toInt()} to linked list", Toast.LENGTH_SHORT).show()
                         }
                         else {
                             Toast.makeText(requireContext(), "Only numbers allowed!", Toast.LENGTH_SHORT).show()
                         }
                     }
                 }
-                "Insert" -> {
-                    if (itemValue.text.isNullOrEmpty() || itemPosition.text.isNullOrEmpty()) {
-                        Toast.makeText(requireContext(), "Item value and position to insert is required!", Toast.LENGTH_SHORT).show()
+                "Add to End" -> {
+                    if (itemValue.text.isNullOrEmpty()) {
+                        Toast.makeText(requireContext(), "Item value is required!", Toast.LENGTH_SHORT).show()
                     }
                     else {
-                        if (checkNumRegex(itemValue.text.toString()) && checkNumRegex(itemPosition.text.toString())) {
-                            arrayView.insertItem(
-                                itemValue.text.toString().toFloat().toInt(),
-                                itemPosition.text.toString().toFloat().toInt()
-                            )
+                        if (checkNumRegex(itemValue.text.toString())) {
+                            llView.addItemToEnd(itemValue.text.toString().toFloat().toInt())
+                            Toast.makeText(requireContext(), "Added ${itemValue.text.toString().toFloat().toInt()} to linked list", Toast.LENGTH_SHORT).show()
                         }
                         else {
                             Toast.makeText(requireContext(), "Only numbers allowed!", Toast.LENGTH_SHORT).show()
                         }
                     }
                 }
-                "Pop" -> {
-                    arrayView.popItem()
+                "Delete from Front" -> {
+                    llView.deleteFromFront()
                 }
-                "Remove" -> {
-                    if (!itemValue.text.isNullOrEmpty() && !itemPosition.text.isNullOrEmpty()) {
-                        Toast.makeText(requireContext(), "Give only item value or position but not both!", Toast.LENGTH_SHORT).show()
-                    }
-                    else if (itemValue.text.isNullOrEmpty() && itemPosition.text.isNullOrEmpty()) {
-                        Toast.makeText(requireContext(), "Give either item value or position to remove!", Toast.LENGTH_SHORT).show()
-                    }
-                    else {
-                        if (!itemValue.text.isNullOrEmpty()) {
-                            arrayView.removeItemByValue(itemValue.text.toString().toFloat().toInt())
-                        }
-                        else {
-                            arrayView.removeItemByPosition(itemPosition.text.toString().toFloat().toInt())
-                        }
+                "Delete from End" -> {
+                    llView.deleteFromEnd()
+                }
+                "Search" -> {
+                    Toast.makeText(requireContext(), "Waiting for implementation", Toast.LENGTH_SHORT).show()
+                    hideSoftKeyboard()
+                    lifecycleScope.launch {
+                        llView.search(itemValue.text.toString().toFloat().toInt())
                     }
                 }
                 else -> {
@@ -124,5 +119,16 @@ class ArrayFragment : Fragment() {
                 }
             }
         }
+    }
+
+    private fun hideSoftKeyboard() {
+        // get the view that currently has focus
+        val viewWithFocus = requireActivity().currentFocus
+        // get Input Method Manager
+        val manager = requireContext().getSystemService(
+            Context.INPUT_METHOD_SERVICE
+        ) as InputMethodManager
+        // hide soft keyboard
+        manager.hideSoftInputFromWindow(viewWithFocus?.windowToken, 0)
     }
 }

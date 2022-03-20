@@ -48,6 +48,10 @@ class DataStructuresListFragment : Fragment(R.layout.fragment_data_structures_li
                 val action = DataStructuresListFragmentDirections.actionDataStructuresListFragmentToArrayFragment()
                 findNavController().navigate(action)
             }
+            1 -> {
+                val action = DataStructuresListFragmentDirections.actionDataStructuresListFragmentToLinkedListFragment()
+                findNavController().navigate(action)
+            }
         }
     }
 

@@ -3,6 +3,7 @@ package com.example.dsadude.data_structures.components.array
 import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Paint
+import android.util.AttributeSet
 import android.util.Log
 import android.view.View
 import android.widget.Toast
@@ -12,45 +13,56 @@ import com.google.android.material.snackbar.BaseTransientBottomBar
 import com.google.android.material.snackbar.BaseTransientBottomBar.LENGTH_SHORT
 import com.google.android.material.snackbar.Snackbar
 
-class ArrayView(
-    private val mContext: Context,
-): View(mContext) {
+class ArrayView : View {
+
+    private val mContext: Context
+
+    constructor(mContext: Context) : super(mContext) {
+        this.mContext = mContext
+        this.whiteColor = ResourcesCompat.getColor(resources, R.color.white, null)
+        this.blueColor = ResourcesCompat.getColor(resources, R.color.BlueViolet3, null)
+        this.greenColor = ResourcesCompat.getColor(resources, R.color.LightGreen3, null)
+        this.arrayValues = mutableListOf<Int>(22, 35, 56, 63, 89, 12, 91, 30, 43)
+        this.paint1 = Paint().apply {
+            isAntiAlias = true
+            isDither = true
+            color = whiteColor
+            strokeWidth = 1f
+            textSize = 35f
+            style = Paint.Style.FILL_AND_STROKE
+            textAlign = Paint.Align.CENTER
+        }
+        this.paint2 = Paint().apply {
+            isAntiAlias = true
+            isDither = true
+            color = blueColor
+            strokeWidth = 8f
+            style = Paint.Style.STROKE
+            textAlign = Paint.Align.CENTER
+        }
+        this.paint3 = Paint().apply {
+            isAntiAlias = true
+            isDither = true
+            color = greenColor
+            strokeWidth = 8f
+            style = Paint.Style.STROKE
+            textAlign = Paint.Align.CENTER
+        }
+    }
 
     private var firstElementLeft = 0f
     private var firstElementTop = 0f
     private var boxWidth = 0f
-    private val whiteColor = ResourcesCompat.getColor(resources, R.color.white, null)
-    private val blueColor = ResourcesCompat.getColor(resources, R.color.BlueViolet3, null)
-    private val greenColor = ResourcesCompat.getColor(resources, R.color.LightGreen3, null)
-    private val arrayValues = mutableListOf<Int>(22, 35, 56, 63, 89, 12, 91, 30, 43)
+    private val whiteColor: Int
+    private val blueColor: Int
+    private val greenColor: Int
+    private val arrayValues: MutableList<Int>
 
-    private val paint1 = Paint().apply {
-        isAntiAlias = true
-        isDither = true
-        color = whiteColor
-        strokeWidth = 1f
-        textSize = 35f
-        style = Paint.Style.FILL_AND_STROKE
-        textAlign = Paint.Align.CENTER
-    }
+    private val paint1: Paint
 
-    private val paint2 = Paint().apply {
-        isAntiAlias = true
-        isDither = true
-        color = blueColor
-        strokeWidth = 8f
-        style = Paint.Style.STROKE
-        textAlign = Paint.Align.CENTER
-    }
+    private val paint2: Paint
 
-    private val paint3 = Paint().apply {
-        isAntiAlias = true
-        isDither = true
-        color = greenColor
-        strokeWidth = 8f
-        style = Paint.Style.STROKE
-        textAlign = Paint.Align.CENTER
-    }
+    private val paint3: Paint
 
     override fun onDraw(canvas: Canvas?) {
         super.onDraw(canvas)
@@ -143,6 +155,39 @@ class ArrayView(
         }
         else {
             Toast.makeText(mContext, "Position must be less than array size (${getArraySize()})", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    constructor(mContext: Context, attributeSet: AttributeSet) : super(mContext, attributeSet) {
+        this.mContext = mContext
+        this.whiteColor = ResourcesCompat.getColor(resources, R.color.white, null)
+        this.blueColor = ResourcesCompat.getColor(resources, R.color.BlueViolet3, null)
+        this.greenColor = ResourcesCompat.getColor(resources, R.color.LightGreen3, null)
+        this.arrayValues = mutableListOf<Int>(22, 35, 56, 63, 89, 12, 91, 30, 43)
+        this.paint1 = Paint().apply {
+            isAntiAlias = true
+            isDither = true
+            color = whiteColor
+            strokeWidth = 1f
+            textSize = 35f
+            style = Paint.Style.FILL_AND_STROKE
+            textAlign = Paint.Align.CENTER
+        }
+        this.paint2 = Paint().apply {
+            isAntiAlias = true
+            isDither = true
+            color = blueColor
+            strokeWidth = 8f
+            style = Paint.Style.STROKE
+            textAlign = Paint.Align.CENTER
+        }
+        this.paint3 = Paint().apply {
+            isAntiAlias = true
+            isDither = true
+            color = greenColor
+            strokeWidth = 8f
+            style = Paint.Style.STROKE
+            textAlign = Paint.Align.CENTER
         }
     }
 }
